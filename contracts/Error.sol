@@ -1,14 +1,16 @@
-# Error Handling
+// SPDX-License-Identifier: MIT
+// compiler version must be greater than or equal to 0.8.17 and less than 0.9.0
+pragma solidity ^0.8.17;
 
-This is a Solidity program that provides the functionality of saving information about news articles. It is backed up by error handling mechanisms in Solidity. This is my submission for the ETH + AVAX Proof: Intermediate EVM Course.
+contract Error {
+    // keep track of the latest article number
+    uint latestArticleNumber = 0;
 
-## Description
-
-It is a program written in Solidity. It has the main functionality of creating, modifying, and deleting news articles.
-
-### Smart Contract Modifiers & Functions
-
-```javascript
+    // create mappings (articles/titles/bodies/categories)
+    mapping(uint => address) public articles;
+    mapping(uint => string) public titles;
+    mapping(uint => string) public bodies;
+    mapping(uint => uint) public categories;
 
     modifier onlyWriter(address writer, uint articleNumber) {
         require(writer == articles[articleNumber], "Only the writer can modify their articles.");
@@ -62,16 +64,4 @@ It is a program written in Solidity. It has the main functionality of creating, 
         bodies[articleNumber] = "";
         categories[articleNumber] = 0;
     }
-
-```
-
-The modifier onlyWriter enforces the restriction on certain functions that take in an address wherein only the original writer can modify the information about an article.
-
-The createArticle() function creates an article by storing the information within the mappings.
-
-Both the modifyArticle() and deleteArticle() functions use the onlyWriter modifier. The modifyArticle() function updates the titles, bodies, and categories of previously written articles. While the deleteArticle() removes any article information for a particular article number, but retains the original writer address.
-
-## Authors
-
-Andre A. Aquino 
-
+}
